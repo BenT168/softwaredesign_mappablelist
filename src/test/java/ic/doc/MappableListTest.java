@@ -7,49 +7,68 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static java.util.Arrays.asList;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static sun.nio.cs.Surrogate.is;
+import static org.junit.Assert.*;
 
 public class MappableListTest {
 
-    List<Integer> intList = new ArrayList<Integer>();
-    MappableList<Integer> mapList = new MappableList(intList);
+    MappableList<Integer> newMappableList = new MappableList<Integer>(new ArrayList<Integer>());
 
-    Function<Integer> f = new Function<Integer>() {
+    Function<Integer> square = new Function<Integer>() {
         @Override
         public Integer applyTo(Integer input) {
-            return input*input;
+            return input * input;
         }
     };
 
     @Test
-    public void isInitialisedAsEmpty() {
-        assertTrue(mapList.isEmpty());
+    public void isListInitialisedAsEmpty() {
+        assertTrue(newMappableList.isEmpty());
     }
 
     @Test
-    public void canBeMappedOnEmptyClass() {
-        assertThat(new MappableList<Integer>().map(f), IsEqual.<List<Integer>>equalTo(new ArrayList<Integer>()));
+    public void canSquareFunctionAppliedOnEmptyList() {
+        assertThat(new MappableList<Integer>().map(square), IsEqual.<List<Integer>>equalTo(new ArrayList<Integer>()));
     }
 
     @Test
-    public void canBeMappedBetweenEmptyClass() {
-        MappableList<Integer> expect = new MappableList<Integer>(intList);
-        Iterator<Integer> iter = expect.iterator();
-        for (Integer elem: mapList) {
-            assertThat(String.valueOf(elem), is(iter.next()));
+    public void canSquareFunctionAppliedOnElemList() {
+        MappableList<Integer> intMappableList = new MappableList<Integer>(3, 6, 9, 12);
+        List<Integer> result = intMappableList.map(square);
+        assertListElementEquals(result, asList(9, 36, 81, 144));
+
+    }
+
+    @Test
+    public void canTwoMapsBeMappedToMapplableList() {
+        MappableList<Integer> intMappableList = new MappableList<Integer>(1, 2, 3, 4);
+        Function<Integer> cube = new Function<Integer>() {
+            @Override
+            public Integer applyTo(Integer input) {
+                return input * input * input;
+            }
+        };
+        List<Integer> result = intMappableList.map(cube);
+        assertListElementEquals(result, asList(1, 8, 27, 64));
+    }
+
+    @Test
+    public void getInitialValueFromEmptyListThrowIndexOutOfBoundsException(){
+        try {
+            newMappableList.initialValue();
+            fail("the list is empty, index out of bounds");
+        } catch (IndexOutOfBoundsException e) {
+            assertThat(e.getMessage(), is("list size must be more than 0"));
         }
     }
 
-    @Test
-    public void containListElem() {
-        MappableList<Integer> newList = new MappableList<Integer>(1, 2, 3);
-        ArrayList<Integer> l = (ArrayList<Integer>) newList.map(f);
-        assertEquals(l.get(0), Integer.valueOf(1));
-        assertEquals(l.get(1), Integer.valueOf(4));
-        assertEquals(l.get(2), Integer.valueOf(9));
+    private void assertListElementEquals(List<Integer> actual, List<Integer> expected) {
+        Iterator<Integer> iter = expected.iterator();
+        for (Integer num: actual) {
+                assertEquals(num, iter.next());
+        }
     }
 
 }

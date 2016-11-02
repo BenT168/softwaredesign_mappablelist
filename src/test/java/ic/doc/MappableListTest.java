@@ -15,8 +15,10 @@ import static org.junit.matchers.JUnitMatchers.hasItems;
 
 public class MappableListTest {
 
-    MappableList<Integer> newMappableList = new MappableList<Integer>(new ArrayList<Integer>());
-    MappableList<Integer> intMappableList = new MappableList<Integer>(asList(1, 2, 3, 4));
+    MappableList<Integer> newMappableList =
+            new MappableList<Integer>(new ArrayList<Integer>());
+    MappableList<Integer> intMappableList =
+            new MappableList<Integer>(asList(1, 2, 3, 4));
 
     UnaryFunction<Integer> square = new UnaryFunction<Integer>() {
         @Override
@@ -37,7 +39,8 @@ public class MappableListTest {
 
     @Test
     public void canSquareFunctionAppliedOnEmptyList() {
-        assertThat(newMappableList.map(square), IsEqual.<List<Integer>>equalTo(new ArrayList<Integer>()));
+        assertThat(newMappableList.map(square),
+                IsEqual.<List<Integer>>equalTo(new ArrayList<Integer>()));
     }
 
     @Test
@@ -69,7 +72,8 @@ public class MappableListTest {
         }
     }
 
-    private void assertListElementEquals(List<Integer> actual, List<Integer> expected) {
+    private void assertListElementEquals(List<Integer> actual,
+                                         List<Integer> expected) {
         Iterator<Integer> iter = expected.iterator();
         for (Integer num: actual) {
                 assertEquals(num, iter.next());

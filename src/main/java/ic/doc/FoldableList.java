@@ -10,7 +10,7 @@ public class FoldableList<T> extends ListGenerator<T> {
 
     public T map(BinaryFunction<T> mapper) {
         if (list.size() < 2){
-            throw new IllegalStateException("Foldable list must have size more than 2");
+            throw new IllegalStateException("foldableList must have size at least 2");
         }
         T result = super.initialValue();
         boolean initial = true;

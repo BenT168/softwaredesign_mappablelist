@@ -14,8 +14,10 @@ import static org.junit.Assert.*;
 
 public class FoldableListTest {
 
-    FoldableList<Integer> newFoldableList = new FoldableList<Integer>(new ArrayList<Integer>());
-    FoldableList<Integer> intFoldableList = new FoldableList<Integer>(asList(1, 2, 3, 4, 5));
+    FoldableList<Integer> newFoldableList =
+            new FoldableList<Integer>(new ArrayList<Integer>());
+    FoldableList<Integer> intFoldableList =
+            new FoldableList<Integer>(asList(1, 2, 3, 4, 5));
 
     BinaryFunction<Integer> sum = new BinaryFunction<Integer>() {
         @Override
@@ -39,13 +41,15 @@ public class FoldableListTest {
         assertThat(intFoldableList.map(sum), is(15));
     }
 
+
+
     @Test
-    public void emptyFoldableListThrowsAssertionErrorWhenBinaryFunctionApplied() {
+    public void appliedBinaryFunctionOnEmptyListThrowAssertionError() {
         testIfAssertionErrorIsRaised();
     }
 
     @Test
-    public void foldableListOfOneElementThrowsAssertionErrorWhenBinaryFunctionApplied() {
+    public void appliedBinaryFunctionOnOneElemListThrowAssertionError() {
         newFoldableList = new FoldableList<>(Arrays.asList(1));
         testIfAssertionErrorIsRaised();
     }
@@ -53,9 +57,9 @@ public class FoldableListTest {
     private void testIfAssertionErrorIsRaised() {
         try {
             newFoldableList.map(sum);
-            fail("foldableList of one element should throw assertionError when map applied");
+            fail("foldableList of 1 element throw assertionError when map applied");
         } catch (IllegalStateException e) {
-            assertThat(e.getMessage(), is("Foldable list must have size more than 2"));
+            assertThat(e.getMessage(), is("foldableList must have size at least 2"));
         }
     }
 

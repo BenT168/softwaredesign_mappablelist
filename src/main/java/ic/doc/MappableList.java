@@ -11,7 +11,6 @@ public class MappableList<T> extends ListGenerator<T> {
 
     public List<T> map(UnaryFunction<T> mapper) {
         List<T> result = new ArrayList<T>();
-
         for(T elem: list) {
             result.add(mapper.applyTo(elem));
         }

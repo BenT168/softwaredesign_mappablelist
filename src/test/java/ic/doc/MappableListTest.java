@@ -11,12 +11,14 @@ import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.*;
+import static org.junit.matchers.JUnitMatchers.hasItems;
 
 public class MappableListTest {
 
     MappableList<Integer> newMappableList = new MappableList<Integer>(new ArrayList<Integer>());
+    MappableList<Integer> intMappableList = new MappableList<Integer>(asList(1, 2, 3, 4));
 
-    Function<Integer> square = new Function<Integer>() {
+    UnaryFunction<Integer> square = new UnaryFunction<Integer>() {
         @Override
         public Integer applyTo(Integer input) {
             return input * input;
@@ -24,27 +26,30 @@ public class MappableListTest {
     };
 
     @Test
-    public void isListInitialisedAsEmpty() {
+    public void isMappableListInitialisedAsEmpty() {
         assertTrue(newMappableList.isEmpty());
     }
 
     @Test
+    public void isMappableListContainGivenElement() {
+        assertThat(intMappableList, hasItems(1, 2, 3, 4));
+    }
+
+    @Test
     public void canSquareFunctionAppliedOnEmptyList() {
-        assertThat(new MappableList<Integer>().map(square), IsEqual.<List<Integer>>equalTo(new ArrayList<Integer>()));
+        assertThat(newMappableList.map(square), IsEqual.<List<Integer>>equalTo(new ArrayList<Integer>()));
     }
 
     @Test
     public void canSquareFunctionAppliedOnElemList() {
-        MappableList<Integer> intMappableList = new MappableList<Integer>(3, 6, 9, 12);
         List<Integer> result = intMappableList.map(square);
-        assertListElementEquals(result, asList(9, 36, 81, 144));
+        assertListElementEquals(result, asList(1, 4, 9, 16));
 
     }
 
     @Test
     public void canTwoMapsBeMappedToMapplableList() {
-        MappableList<Integer> intMappableList = new MappableList<Integer>(1, 2, 3, 4);
-        Function<Integer> cube = new Function<Integer>() {
+        UnaryFunction<Integer> cube = new UnaryFunction<Integer>() {
             @Override
             public Integer applyTo(Integer input) {
                 return input * input * input;

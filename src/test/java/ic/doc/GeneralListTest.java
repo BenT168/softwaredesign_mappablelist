@@ -12,8 +12,8 @@ public class GeneralListTest {
             new GeneralList<Integer>(new ArrayList<Integer>());
 
     @Test
-    public void isListInitialisedAsEmpty() {
+    public void isListInitialisedEmpty() {
         assertTrue(newList.isEmpty());
     }
-    
+
 }

@@ -27,7 +27,7 @@ public class FoldableListTest {
     };
 
     @Test
-    public void isFoldableListContainGivenElement() {
+    public void doesFoldableListContainGivenElement() {
         assertThat(intFoldableList, hasItems(1, 2, 3, 4, 5));
     }
 

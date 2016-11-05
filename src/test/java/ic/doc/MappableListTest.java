@@ -28,18 +28,18 @@ public class MappableListTest {
     };
 
     @Test
-    public void isMappableListContainGivenElement() {
+    public void doesMappableListContainGivenElement() {
         assertThat(intMappableList, hasItems(1, 2, 3, 4));
     }
 
     @Test
-    public void canSquareFunctionAppliedOnEmptyList() {
+    public void canSquareFunctionBeAppliedOnEmptyList() {
         assertThat(newMappableList.map(square),
                 IsEqual.<List<Integer>>equalTo(new ArrayList<Integer>()));
     }
 
     @Test
-    public void canSquareFunctionAppliedOnElemList() {
+    public void canSquareFunctionBeAppliedOnElemList() {
         List<Integer> result = intMappableList.map(square);
         assertListElementEquals(result, asList(1, 4, 9, 16));
 

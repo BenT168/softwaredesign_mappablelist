@@ -2,7 +2,7 @@ package ic.doc;
 
 import java.util.List;
 
-public class FoldableList<T> extends ListGenerator<T> {
+public class FoldableList<T> extends GeneralList<T> {
 
     public FoldableList(List<T> list) {
         super(list);

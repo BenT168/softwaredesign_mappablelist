@@ -28,11 +28,6 @@ public class MappableListTest {
     };
 
     @Test
-    public void isMappableListInitialisedAsEmpty() {
-        assertTrue(newMappableList.isEmpty());
-    }
-
-    @Test
     public void isMappableListContainGivenElement() {
         assertThat(intMappableList, hasItems(1, 2, 3, 4));
     }

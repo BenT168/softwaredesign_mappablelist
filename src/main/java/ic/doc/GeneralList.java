@@ -3,11 +3,11 @@ package ic.doc;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class ListGenerator<T> implements Iterable<T> {
+public class GeneralList<T> implements Iterable<T> {
 
     protected final List<T> list;
 
-    public ListGenerator(List<T> list) {
+    public GeneralList(List<T> list) {
         this.list = list;
     }
 

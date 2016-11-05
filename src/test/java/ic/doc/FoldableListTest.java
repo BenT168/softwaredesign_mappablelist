@@ -27,11 +27,6 @@ public class FoldableListTest {
     };
 
     @Test
-    public void isFoldableListInitialisedAsEmpty() {
-        assertTrue(newFoldableList.isEmpty());
-    }
-
-    @Test
     public void isFoldableListContainGivenElement() {
         assertThat(intFoldableList, hasItems(1, 2, 3, 4, 5));
     }
@@ -42,7 +37,6 @@ public class FoldableListTest {
     }
 
 
-
     @Test
     public void appliedBinaryFunctionOnEmptyListThrowAssertionError() {
         testIfAssertionErrorIsRaised();
@@ -50,7 +44,7 @@ public class FoldableListTest {
 
     @Test
     public void appliedBinaryFunctionOnOneElemListThrowAssertionError() {
-        newFoldableList = new FoldableList<>(Arrays.asList(1));
+        newFoldableList = new FoldableList<Integer>(Arrays.asList(1));
         testIfAssertionErrorIsRaised();
     }
 

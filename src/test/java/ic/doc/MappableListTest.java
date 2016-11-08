@@ -23,6 +23,12 @@ public class MappableListTest {
     UnaryFunction<Integer> square = new UnaryFunction<Integer>() {
         @Override
         public Integer applyTo(Integer input) {
+
+            try{
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                //interrupted
+            }
             return input * input;
         }
     };

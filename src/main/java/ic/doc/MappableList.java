@@ -17,5 +17,7 @@ public class MappableList<T> extends GeneralList<T> {
         return result;
     }
 
+
+
 }
 

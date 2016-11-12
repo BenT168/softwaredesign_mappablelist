@@ -60,8 +60,8 @@ public class PerformanceTest {
     @Test
     public void longRunningTimeForConcurrentMappingReducingTest() {
         long startTime = System.currentTimeMillis();
-        Integer result =
-                new MapReduceList<Integer>(1, 2, 3, 4).map(slowSquare).reduce(slowSum, 0);
+        Integer result = new MapReduceList<Integer>(1, 2, 3, 4).
+                map(slowSquare).reduce(slowSum, 0);
         Assert.assertThat(result, is(30));
         long estimatedTime = System.currentTimeMillis() - startTime;
         assertThat(estimatedTime, lessThan(Long.valueOf(result * SLEEPING_TIME)));

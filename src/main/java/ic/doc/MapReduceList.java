@@ -60,7 +60,7 @@ public class MapReduceList<T> implements Iterable<T> {
         }
     }
 
-    public T reduce(BinaryFunction<T> binFunc, T init) {
+    public T reduce(BinaryFunction<T> func, T init) {
         ExecutorService executorService = Executors.newFixedThreadPool(list.size());
         List<Callable<T>> listOfTasks = new ArrayList<>();
         List<Future<T>> futures = new ArrayList<>();
@@ -68,9 +68,10 @@ public class MapReduceList<T> implements Iterable<T> {
         while (size() > 1) {
             for (int i = 0; i < size(); i++) {
                 if (size() % 2 == 1 && i == size() - 1) {
-                    listOfTasks.add(new ReduceCallable<T>(binFunc, list.get(i), init));
+                    listOfTasks.add(new ReduceCallable<T>(func, list.get(i), init));
                 } else {
-                    listOfTasks.add(new ReduceCallable<T>(binFunc, list.get(i), list.get(++i)));
+                    listOfTasks.add(new ReduceCallable<T>(func, list.get(i),
+                            list.get(++i)));
                 }
             }
             reduceHelper(futures, listOfTasks, executorService);
@@ -79,14 +80,15 @@ public class MapReduceList<T> implements Iterable<T> {
         return list.get(0);
     }
 
-    private void reduceHelper(List<Future<T>> futures, List<Callable<T>> listOfTasks, ExecutorService executor) {
+    private void reduceHelper(List<Future<T>> futures, List<Callable<T>> tasks,
+                              ExecutorService executor) {
         try {
-            futures = executor.invokeAll(listOfTasks);
+            futures = executor.invokeAll(tasks);
             list = new ArrayList<T>();
             for (Future<T> future : futures) {
                 list.add(future.get());
             }
-            listOfTasks.clear();
+            tasks.clear();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

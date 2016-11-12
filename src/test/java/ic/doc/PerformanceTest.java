@@ -27,7 +27,8 @@ public class PerformanceTest {
     @Test
     public void longRunningTimeForConcurrentMappingTest() {
         long startTime = System.currentTimeMillis();
-        Iterable<Integer> slowSquares = new MapReduceList(1, 2, 3, 4).map(slowSquare);
+        Iterable<Integer> slowSquares =
+                new MapReduceList(1, 2, 3, 4).map(slowSquare);
         assertThat(slowSquares, contains(1, 4, 9, 16));
         long estimatedTime = System.currentTimeMillis() - startTime;
         assertThat(estimatedTime, lessThan(Long.valueOf(2 * SLEEPING_TIME)));
@@ -49,7 +50,8 @@ public class PerformanceTest {
     @Test
     public void longRunningTimeForConcurrentReducingTest() {
         long startTime = System.currentTimeMillis();
-        Integer slowTotal = new MapReduceList<Integer>(1, 2, 3, 4, 5, 6).reduce(slowSum, 0);
+        Integer slowTotal =
+                new MapReduceList<Integer>(1, 2, 3, 4, 5, 6).reduce(slowSum, 0);
         assertThat(slowTotal, is(21));
         long estimatedTime = System.currentTimeMillis() - startTime;
         assertThat(estimatedTime, lessThan(Long.valueOf(slowTotal * SLEEPING_TIME)));
@@ -58,8 +60,9 @@ public class PerformanceTest {
     @Test
     public void longRunningTimeForConcurrentMappingReducingTest() {
         long startTime = System.currentTimeMillis();
-        Integer result = new MapReduceList<Integer>(1, 2, 3, 4, 5).map(slowSquare).reduce(slowSum, 0);
-        Assert.assertThat(result, is(55));
+        Integer result =
+                new MapReduceList<Integer>(1, 2, 3, 4).map(slowSquare).reduce(slowSum, 0);
+        Assert.assertThat(result, is(30));
         long estimatedTime = System.currentTimeMillis() - startTime;
         assertThat(estimatedTime, lessThan(Long.valueOf(result * SLEEPING_TIME)));
     }

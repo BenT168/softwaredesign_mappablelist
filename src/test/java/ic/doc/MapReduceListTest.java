@@ -49,7 +49,8 @@ public class MapReduceListTest {
                 return input * input * input;
             }
         };
-        Iterable<Integer> triSquares = new MapReduceList(1, 2, 3, 4).map(square).map(cube);
+        Iterable<Integer> triSquares =
+                new MapReduceList(1, 2, 3, 4).map(square).map(cube);
         assertThat(triSquares, contains(1, 64, 729, 4096));
     }
 
@@ -68,7 +69,8 @@ public class MapReduceListTest {
 
     @Test
     public void canMapReduceFunctionsBeAppliedToList() {
-        Integer result = new MapReduceList<Integer>(1, 2, 3, 4).map(square).reduce(sum, 0);
+        Integer result =
+                new MapReduceList<Integer>(1, 2, 3, 4).map(square).reduce(sum, 0);
         Assert.assertThat(result, is(30));
     }
 

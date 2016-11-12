@@ -73,7 +73,7 @@ public class MapReduceListTest {
     }
 
     @Test
-    public void getInitialValueFromEmptyListThrowIndexOutOfBoundsException(){
+    public void getInitialValueFromEmptyListThrowIndexOutOfBoundsException() {
         MapReduceList newList = new MapReduceList();
         try {
             newList.initialValue();

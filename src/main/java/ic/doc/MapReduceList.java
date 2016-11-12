@@ -92,7 +92,6 @@ public class MapReduceList<T> implements Iterable<T> {
         }
     }
 
-
 }
 
 

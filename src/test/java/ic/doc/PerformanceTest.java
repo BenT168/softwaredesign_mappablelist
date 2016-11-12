@@ -3,8 +3,6 @@ package ic.doc;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.concurrent.ExecutionException;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
@@ -36,7 +34,6 @@ public class PerformanceTest {
 
     }
 
-
     private BinaryFunction<Integer> slowSum = new BinaryFunction<Integer>() {
         @Override
         public Integer applyTo(Integer inputA, Integer inputB) {
@@ -58,9 +55,8 @@ public class PerformanceTest {
         assertThat(estimatedTime, lessThan(Long.valueOf(slowTotal * SLEEPING_TIME)));
     }
 
-
     @Test
-    public void longRunningTimeForConcurrentMappingReducingTest() throws ExecutionException, InterruptedException {
+    public void longRunningTimeForConcurrentMappingReducingTest() {
         long startTime = System.currentTimeMillis();
         Integer result = new MapReduceList<Integer>(1, 2, 3, 4, 5).map(slowSquare).reduce(slowSum, 0);
         Assert.assertThat(result, is(55));
